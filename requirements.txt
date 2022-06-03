@@ -1,0 +1,3 @@
+neomodel
+fastapi
+"uvicorn[standard]"
