@@ -1,3 +1,4 @@
 neomodel
 fastapi
-"uvicorn[standard]"
+uvicorn
+gunicorn
