@@ -3,3 +3,9 @@ uvicorn main:app --reload
 
 docker build -t myimage .
 docker run -d --name mycontainer -p 80:80 myimage
+
+## gérer les images sur gcs (google cloud storage)
+
+créer un bucket
+créer un compte de service dans IAM et lui mettre le droit sur cloud storage administrator
+ajouter/modifier la clé json dans le dossier racine de l'API
