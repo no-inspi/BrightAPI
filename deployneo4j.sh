@@ -1,9 +1,9 @@
 #!/bin/bash
-export PROJECT=bright-354417
+export PROJECT=unified-firefly-364609
 export MACHINE=n1-standard-2
 export DISK_TYPE=pd-ssd
 export DISK_SIZE=64GB
-export ZONE=us-east1-b
+export ZONE=europe-west1-b
 export NEO4J_VERSION=4.4.8
 export PASSWORD="test"
 export STACK_NAME=neo4j-standalone
@@ -17,7 +17,7 @@ gcloud compute firewall-rules create "$STACK_NAME" \
     --project $PROJECT
 if [ $? -ne 0 ] ; then
    echo "Firewall creation failed.  Bailing out"
-   exit 1
+   sleep 4
 fi
 echo "Creating instance"
 OUTPUT=$(gcloud compute instances create $STACK_NAME \
@@ -45,7 +45,7 @@ fi
   if [ $tries -gt 30 ] ; then
     echo STACK_NAME=$STACK_NAME
     echo "Machine is not coming up, giving up"
-    exit 1
+    sleep 4
   fi
   tries=$(($tries+1))
   echo "Machine is not up yet ... $tries tries"
