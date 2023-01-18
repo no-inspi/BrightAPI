@@ -11,7 +11,8 @@ router = APIRouter()
 async def get_post(user: str = None):
     all_posts = []
     
-    query = "match (u:User {username: '"+user+"'})<-[rel:`POSTED_BY`]-(t) return t"
+    query = "match (u:User {username: '"+user+"'})<-[rel:`POSTED_BY`]-(t:Post) return t"
+
     posts, meta = db.cypher_query(query)
     posts = [Post.inflate(row[0]) for row in posts]
     
@@ -27,12 +28,13 @@ async def get_post(user: str = None):
         # Commentaires
         comment_list = []
         for comment in post.comments:
-            
+            rel_com = post.comments.relationship(comment)
             comment_username = ""
             for comment_user in comment.users:
                 comment_username = comment_user.username
 
             comment.username = comment_username
+            comment.since = rel_com.since
             comment_list.append(json.loads(json.dumps(comment.__properties__,default=str)))
             
 
