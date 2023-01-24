@@ -30,7 +30,7 @@ class Comment(StructuredNode):
     users = RelationshipTo(User, 'POSTED_BY')
 
 class Metrics(StructuredNode):
-    id_gun = StringProperty(unique_index=True)
+    id_gun = IntegerProperty(unique_index=True)
     vues = IntegerProperty()
     post = RelationshipTo('Post', 'EVAL')
     liked_list_view = ArrayProperty(StringProperty(), default=[])
@@ -42,7 +42,7 @@ class PathImg(StructuredNode):
     nomimg = StringProperty(unique_index=True)
 
 class Post(StructuredNode):
-    id_gun = StringProperty(unique_index=True)
+    id_gun = IntegerProperty(unique_index=True)
     content = StringProperty()
     title = StringProperty()
     metrics = RelationshipFrom(Metrics, 'EVAL', model=MetricsRel)

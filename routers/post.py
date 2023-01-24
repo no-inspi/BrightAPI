@@ -8,6 +8,13 @@ router = APIRouter()
 
 @router.get("/create_post")
 async def create_post(id_gun: str = None, username: str = None, title: str = None, content: str = None, c: Union[List[str], None] = Query(default=None)):
+    try:
+        posts = Post.nodes.order_by('-id_gun').first()
+        print('in')
+        id_gun = int(posts.id_gun)+1
+    except: 
+        id_gun = 0
+    print(id_gun)
     if(id_gun != "" and username != "" and content != "" and c and title != ""):
         post = Post(id_gun=id_gun, content=content, title=title).save()
         metrics =  Metrics(vues=0, id_gun=id_gun).save()
@@ -35,6 +42,8 @@ async def create_post(id_gun: str = None, username: str = None, title: str = Non
 
 @router.get("/get_post")
 async def get_post(id_gun: str = None):
+
+    
     post = Post.nodes.filter(id_gun=id_gun).first()
     metric = Metrics.nodes.filter(id_gun=id_gun).first()
     # for metrics in post.metrics:

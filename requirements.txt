@@ -2,3 +2,5 @@ neomodel
 fastapi
 uvicorn
 gunicorn
+python-decouple
+kellanb-cryptography

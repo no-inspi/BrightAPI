@@ -7,7 +7,7 @@ from fastapi import FastAPI
 import os
 
 from routers import main, post, user, interactions, user_post
-from internal import admin, metrics
+from internal import admin, metrics, generate_post, admin_crud
 from gcp import file
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= 'unified-firefly-364609-8f7b0e555e21.json'
@@ -38,6 +38,8 @@ app.include_router(user_post.router)
 
 app.include_router(admin.router)
 app.include_router(metrics.router)
+app.include_router(generate_post.router)
+app.include_router(admin_crud.router)
 
 app.include_router(file.router)
 
