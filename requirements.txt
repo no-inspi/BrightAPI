@@ -4,3 +4,5 @@ uvicorn
 gunicorn
 python-decouple
 kellanb-cryptography
+openai
+random-username

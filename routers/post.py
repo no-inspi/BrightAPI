@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from typing import Union, List
 from fastapi import Query
+import random
 
 from db.db import *
 
@@ -266,3 +267,44 @@ async def get_posts_by_categorie(categorie:str = None):
         all_posts.append(merged)
 
     return all_posts
+
+@router.get("/get_first_liked_post")
+async def get_first_liked_post():
+    all_posts = Post.nodes.all()
+    all_post_tmp = all_posts
+    max = 0
+    # print(len(all_post_tmp))
+    post_to_return = []
+    for i in range(0,4):
+        index = 0
+        max = 0
+        for post in all_post_tmp:
+            nb_likes = len(post.likes)
+            if nb_likes > max:
+                max_post = post
+                max = nb_likes
+                index_delete = index
+            
+            index+=1
+
+        post_to_return.append(json.loads(json.dumps(max_post.__properties__,default=str)))
+        all_post_tmp.pop(index_delete)
+
+    # max_post = json.loads(json.dumps(post_to_return.__properties__,default=str))
+    # max_post = {**max_post}
+    
+    return post_to_return
+
+@router.get("/get_random_post")
+async def get_random_post(numberofpost: int = None):
+    all_posts = Post.nodes.all()
+    random_post = random.choices(all_posts,k=numberofpost)
+    post_to_return = []
+
+    for randomi in random_post:
+        post_to_return.append(json.loads(json.dumps(randomi.__properties__,default=str)))
+
+    # post_to_return = json.loads(json.dumps(random_post.__properties__,default=str))
+    # post_to_return = {**post_to_return}
+
+    return post_to_return

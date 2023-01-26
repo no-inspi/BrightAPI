@@ -92,10 +92,23 @@ async def init_index_metrics():
        post.save()
 
 from pathlib import Path
+import pathlib
 import json
 import openai
 import os
 from decouple import config
+from base64 import b64decode
+
+DATA_DIR = Path.cwd() / "responses"
+DATA_DIR.mkdir(exist_ok=True)
+
+IMAGE_DIR = Path.cwd() / "images"
+
+IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+
+ALL_PATH_IMAGE_DIR = r"C:\Users\charl\Mes documents\Github\FrontAndGunBright\public\images"
+
+print(ALL_PATH_IMAGE_DIR)
 
 @router.get("/generate_image")
 async def generate_image(): 
@@ -110,12 +123,16 @@ async def generate_image():
                 prompt=post.title,
                 n=1,
                 size="512x512",
-                # response_format="b64_json",
+                response_format="b64_json",
             )
 
-            url_img = response['data'][0]['url']
+            image_data = b64decode(response['data'][0]["b64_json"])
+            image_file = ALL_PATH_IMAGE_DIR+"\\"+"-"+str(i)+".png"
 
-            img = PathImg(nomimg=url_img).save()
+            with open(image_file, mode="wb") as png:
+                png.write(image_data)
+                
+            img = PathImg(nomimg='images/'+"-"+str(i)+".png").save()
             post.img.connect(img)
         print("image generated successfully number : "+str(i))
 
