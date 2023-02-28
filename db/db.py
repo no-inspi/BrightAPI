@@ -24,6 +24,11 @@ class CommentRel(StructuredRel):
 class User(StructuredNode):
     username = StringProperty(unique_index=True)
     password = StringProperty()
+    last_name = StringProperty()
+    first_name = StringProperty()
+    email = StringProperty()
+    birthdate = StringProperty()
+
 
 class Comment(StructuredNode):
     content = StringProperty()

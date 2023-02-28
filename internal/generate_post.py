@@ -16,7 +16,7 @@ k = hashlib.sha256(b"my-secret-key@123").digest()
 async def generate_post():
     lines = clean_file("idea_end_withoutblank.txt")
     currentTimestamp = datetime.datetime.now().timestamp()
-    username = 'padaqor'
+    username = 'padaqore'
     # id_to_crypt = str(currentTimestamp) + '+' + username + '+' + 'test'
     
     # cipher = AES.new(k, AES.MODE_EAX)
@@ -38,7 +38,7 @@ async def generate_post():
 
         post = Post(id_gun=id_gun, content=resp_tamp, title=line).save()
         metrics =  Metrics(vues=0, id_gun=id_gun).save()
-        user = User.nodes.filter(username='padaqor').first()
+        user = User.nodes.filter(username='padaqore').first()
 
         post.users.connect(user)
         rel = post.metrics.connect(metrics)
