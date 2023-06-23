@@ -77,8 +77,6 @@ def random_username_like_dislike(all_users,numberofuser):
     return like_array, dislike_array
 
 
-
-
 @router.get("/generate_like_dislike")
 async def generate_like_dislike():
     all_posts = Post.nodes.all()

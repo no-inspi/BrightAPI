@@ -1,5 +1,5 @@
 #!/bin/bash
-export PROJECT=unified-firefly-364609
+export PROJECT=ageless-aura-376511
 export MACHINE=n1-standard-2
 export DISK_TYPE=pd-ssd
 export DISK_SIZE=64GB

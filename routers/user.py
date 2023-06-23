@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 from db.db import *
 
@@ -45,3 +45,28 @@ async def get_users():
     user = User.nodes.all()
     # user = json.loads(json.dumps(user.__properties__,default=str))
     return user
+
+@router.post("/update_user")
+async def update_user(username: str = None, info: Request = None):
+    req_info = await info.json()  
+        
+    this_user = User.nodes.filter(username=username).first()
+    if req_info['username'] != None:
+        this_user.username = req_info['username']
+
+    if req_info['first_name'] != None:
+        this_user.first_name = req_info['first_name']
+    
+    if req_info['last_name']!= None:
+        this_user.last_name = req_info['last_name']
+        
+    if req_info['dateBirth']!= None:
+        this_user.birthdate = req_info['dateBirth']
+    
+    if req_info['email']!= None:
+        this_user.email = req_info['email']
+
+    this_user.save()
+    
+
+    return {"Status": "User Successfully Updated!"}
