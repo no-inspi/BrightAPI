@@ -91,4 +91,4 @@ def generate_image(description):
   return response['data'][0]['url']
   
 # get_idea_from_categories()
-clean_file('idea_end_withoutblank.txt')
+# clean_file('idea_end_withoutblank.txt')
