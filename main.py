@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
 import os
+import uvicorn
 
 from routers import main, post, user, interactions, user_post
 from internal import admin, metrics, generate_post, admin_crud
@@ -14,6 +15,9 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= 'unified-firefly-364609-8f7b0e555e
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 # config.DATABASE_URL = 'bolt://neo4j:test1234@localhost:7687'
 # neo4j+s://f8ed2e04.databases.neo4j.io
 config.DATABASE_URL = 'neo4j+s://{}:{}@{}'.format("neo4j", "9QU98_zanaY8ukCBOuXtfwSyzLPBw99TgOGHSHkjprY", "f8ed2e04.databases.neo4j.io")
@@ -47,7 +51,8 @@ app.include_router(admin_crud.router)
 
 app.include_router(file.router)
 
-
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
 
