@@ -15,7 +15,11 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]= 'unified-firefly-364609-8f7b0e555e
 app = FastAPI()
 
 # config.DATABASE_URL = 'bolt://neo4j:test1234@localhost:7687'
-config.DATABASE_URL = 'bolt://neo4j:sM6Z48en@34.79.181.172:7687'
+# neo4j+s://f8ed2e04.databases.neo4j.io
+config.DATABASE_URL = 'neo4j+s://{}:{}@{}'.format("neo4j", "9QU98_zanaY8ukCBOuXtfwSyzLPBw99TgOGHSHkjprY", "f8ed2e04.databases.neo4j.io")
+
+# 9QU98_zanaY8ukCBOuXtfwSyzLPBw99TgOGHSHkjprY
+# config.DATABASE_URL = 'bolt://neo4j:sM6Z48en@34.79.181.172:7687'
 config.ENCRYPTED_CONNECTION = False
 
 origins = [
