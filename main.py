@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
 import os
+import uvicorn
 
 from routers import main, post, user, interactions, user_post
 from internal import admin, metrics, generate_post, admin_crud
@@ -46,6 +47,9 @@ app.include_router(generate_post.router)
 app.include_router(admin_crud.router)
 
 app.include_router(file.router)
+
+if __name__ == "__main__":
+  uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 
 
 
